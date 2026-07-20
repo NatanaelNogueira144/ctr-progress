@@ -20,27 +20,19 @@ body {
 }
 
 main.content {
-  padding: 20px 10px;
+  padding: 2px;
 }
 
-p, span {
+span {
   background-image: linear-gradient(#c4c7e8, #a4a3e7);
   background-clip: text;
   color: transparent;
   user-select: none;
   font-weight: normal;
   -webkit-text-stroke-color: black;
-  background-size: 2rem 2rem;
-  font-size: 2rem;
-  -webkit-text-stroke-width: 1.3px;
-}
-
-p {
-  margin-bottom: 2rem;
-}
-
-p:last-child {
-  margin-bottom: 0;
+  background-size: 1.75rem 1.75rem;
+  font-size: 1.75rem;
+  -webkit-text-stroke-width: 0.6px;
 }
 
 .orange {
@@ -83,7 +75,7 @@ div.card-group {
 }
 
 div.card {
-  border: 6px ridge rgba(149, 241, 235, 0.8);
+  border: 3px ridge rgba(149, 241, 235, 0.8);
   background-color: rgba(64, 64, 64, 0.8);
   border-radius: 2px;
   box-shadow: 7px 7px 2px 0 rgba(0, 0, 0, 0.7);
@@ -91,7 +83,7 @@ div.card {
 }
 
 div.card hr {
-  border-bottom: 6px ridge rgba(149, 241, 235, 0.8);
+  border-bottom: 3px ridge rgba(149, 241, 235, 0.8);
   margin: 0;
   padding: 0;
 }
@@ -101,17 +93,17 @@ table {
   background-color: rgba(64, 64, 64, 0.8);
   margin-bottom: 10px;
   border-radius: 2px;
-  box-shadow: 25px 25px 5px 0 rgba(0, 0, 0, 0.7);
+  box-shadow: 7px 7px 2px 0 rgba(0, 0, 0, 0.7);
 }
 
 table {
-  border: 6px ridge rgba(149, 241, 235, 0.8);
+  border: 3px ridge rgba(149, 241, 235, 0.8);
   border-collapse: collapse;
   padding: 3px 5px;
 }
 
 table th {
-  border-bottom: 6px ridge rgba(149, 241, 235, 0.8);
+  border-bottom: 3px ridge rgba(149, 241, 235, 0.8);
 }
 
 button {
@@ -157,13 +149,13 @@ input, select {
   background-clip: text;
   user-select: none;
   font-weight: normal;
-  background-size: 2rem 2rem;
-  font-size: 2rem;
+  background-size: 1.75rem 1.75rem;
+  font-size: 1.75rem;
   border-bottom: 1.5px solid white;
 }
 
 input[type=ctrtime] {
-  width: 100px;
+  width: 80px;
 }
 
 input:focus, select:focus {
