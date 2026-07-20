@@ -4,14 +4,6 @@ A lightweight browser-based overlay for tracking Crash Team Racing progress duri
 
 CTR Progress is designed to be used as a narrow side window in OBS, similar to the split layouts commonly seen in speedrun streams. It helps players track personal bests, goals, world records, and current grind performance in a compact visual format.
 
-## Preview
-
-Add a screenshot or GIF here showing the overlay inside OBS.
-
-```md
-
-```
-
 ## Features
 
 - Track personal bests, goals, and world records.
