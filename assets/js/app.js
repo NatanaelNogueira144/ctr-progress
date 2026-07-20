@@ -2,13 +2,13 @@ const CATEGORY_TIME_TYPES = ['personalBest', 'worldRecord', 'goal'];
 const GRIND_TIME_TYPES = ['bestCourse', 'bestLap', 'bestLapInCourse', 'bestSL', 'bestPace'];
 
 const SELECTED = readStorage(STORAGE_KEY);
-const DATA = readStorage(DATA_KEY);
 
 const STATE = {
   selectedMode: SELECTED.mode ?? Mode.TimeTrial,
   selectedTrack: SELECTED.track ?? Track.CrashCove,
   selectedRestriction: SELECTED.restriction ?? Restriction.NoRestriction,
   selectedEngine: SELECTED.engine ?? Engine.GrindBest,
+  data: readStorage(DATA_KEY)
 };
 
 const DOM = {
@@ -71,7 +71,7 @@ function getCurrentCategories() {
 }
 
 function getCurrentMetrics() {
-  return DATA?.[STATE.selectedMode]?.[STATE.selectedTrack]?.[STATE.selectedRestriction]?.[STATE.selectedEngine];
+  return STATE.data?.[STATE.selectedMode]?.[STATE.selectedTrack]?.[STATE.selectedRestriction]?.[STATE.selectedEngine];
 }
 
 function getLastGrind(grinds = []) {
@@ -167,8 +167,7 @@ function saveTime(data = {
   time,
 }) {
   const { mode, track, restriction, engine, category, type, time } = data;
-  const currentData = readStorage(DATA_KEY);
-  const metrics = ensureMetricsRoot(currentData, mode, track, restriction, engine);
+  const metrics = ensureMetricsRoot(STATE.data, mode, track, restriction, engine);
 
   if (CATEGORY_TIME_TYPES.includes(type)) {
     if (!metrics.categories[category]) {
@@ -183,7 +182,7 @@ function saveTime(data = {
     lastGrind[type] = time;
   }
 
-  writeStorage(DATA_KEY, currentData);
+  writeStorage(DATA_KEY, STATE.data);
 }
 
 function closeActiveEdits() {
@@ -257,7 +256,7 @@ function createEditableTimeCell({
     closeActiveEdits();
 
     inputs.forEach((input, index) => {
-      input.value = formatTimeMask(inputValues[index]);
+      input.value = formatTimeMask(toggleButton.textContent.split(' + ')[index]);
       input.maxLength = input.value[0] === '-' ? 8 : 7;
     });
 
