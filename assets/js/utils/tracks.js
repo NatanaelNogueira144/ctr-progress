@@ -1,0 +1,20 @@
+const Track = Object.freeze({
+  CrashCove: 'Crash Cove',
+  RoosTubes: 'Roo\'s Tubes',
+  TigerTemple: 'Tiger Temple',
+  CocoPark: 'Coco Park',
+  MysteryCaves: 'Mystery Caves',
+  BlizzardBluff: 'Blizzard Bluff',
+  SewerSpeedway: 'Sewer Speedway',
+  DingoCanyon: 'Dingo Canyon',
+  PapusPyramid: 'Papu\'s Pyramid',
+  DragonMines: 'Dragon Mines',
+  PolarPass: 'Polar Pass',
+  CortexCastle: 'Cortex Castle',
+  TinyArena: 'Tiny Arena',
+  HotAirSkyway: 'Hot Air Skyway',
+  NGinLabs: 'N. Gin Labs',
+  OxideStation: 'Oxide Station',
+  SlideColiseum: 'Slide Coliseum',
+  TurboTrack: 'Turbo Track'
+});

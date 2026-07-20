@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTR Progress</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <div class="background-wrapper">
+    <img id="background" src="" alt="Background" class="background-image" />
+  </div>
+
+  <main class="content">
+    <div class="card-group">
+      <div class="card">
+        <button class="block">
+          <span id="mode" class="orange">Mode</span>
+        </button>
+        <button class="block">
+          <span id="track" class="orange">Track</span>
+        </button>
+        <button class="block">
+          <span id="restriction" class="orange">Restriction</span>
+        </button>
+        <button class="block">
+          <span id="engine" class="orange">Engine</span>
+        </button>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr id="categories"></tr>
+      </thead>
+      <tbody>
+        <tr id="pbs"></tr>
+        <tr id="goals"></tr>
+        <tr id="wrs"></tr>
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th><span class="orange">Grind Results</span></th>
+          <th><span class="orange">Time</span></th>
+        </tr>
+      </thead>
+      <tbody id="grindCategories"></tbody>
+    </table>
+  </main>
+
+  <script src="assets/js/utils/date-utils.js"></script>
+  <script src="assets/js/utils/array-utils.js"></script>
+  <script src="assets/js/utils/categories.js"></script>
+  <script src="assets/js/utils/engines.js"></script>
+  <script src="assets/js/utils/modes.js"></script>
+  <script src="assets/js/utils/restrictions.js"></script>
+  <script src="assets/js/utils/tracks.js"></script>
+  <script src="assets/js/utils/charts.js"></script>
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
