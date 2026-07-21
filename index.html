@@ -9,58 +9,27 @@
 </head>
 <body>
   <div class="background-wrapper">
-    <img id="background" src="" alt="Background" class="background-image" />
+    <img id="background" src="assets/images/tracks/Menu.png" alt="Background" class="background-image" />
   </div>
 
   <main class="content">
-    <div class="card-group">
-      <div class="card">
-        <button class="block">
-          <span id="mode" class="orange">Mode</span>
-        </button>
-        <button class="block">
-          <span id="track" class="orange">Track</span>
-        </button>
-        <button class="block">
-          <span id="restriction" class="orange">Restriction</span>
-        </button>
-        <button class="block">
-          <span id="engine" class="orange">Engine</span>
-        </button>
-      </div>
+    <div class="logo-wrapper">
+      <img class="logo" src="assets/images/logo.png" alt="">
     </div>
 
-    <table>
-      <thead>
-        <tr id="categories"></tr>
-      </thead>
-      <tbody>
-        <tr id="pbs"></tr>
-        <tr id="goals"></tr>
-        <tr id="wrs"></tr>
-      </tbody>
-    </table>
+    <h1 class="orange">CTR Progress</h1>
 
-    <table>
-      <thead>
-        <tr>
-          <th><span class="orange">Grind Results</span></th>
-          <th><span class="orange">Time</span></th>
-        </tr>
-      </thead>
-      <tbody id="grindCategories"></tbody>
-    </table>
+    <p>
+      Press <span class="orange">M</span> to go to the main page
+    </p>
+    <p>
+      Press <span class="orange">G</span> to go to the goals report page
+    </p>
+    <p>
+      Press <span class="orange">Escape</span> to return to this page
+    </p>
   </main>
 
-  <script src="assets/js/utils/date-utils.js"></script>
-  <script src="assets/js/utils/array-utils.js"></script>
-  <script src="assets/js/utils/categories.js"></script>
-  <script src="assets/js/utils/engines.js"></script>
-  <script src="assets/js/utils/modes.js"></script>
-  <script src="assets/js/utils/restrictions.js"></script>
-  <script src="assets/js/utils/tracks.js"></script>
-  <script src="assets/js/utils/charts.js"></script>
-  <script src="assets/js/storage.js"></script>
-  <script src="assets/js/app.js"></script>
+  <script src="assets/js/controls.js"></script>
 </body>
 </html>

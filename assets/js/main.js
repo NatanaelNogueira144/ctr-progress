@@ -80,7 +80,6 @@ function getLastGrind(grinds = []) {
 
 function cycleSelection(key, values) {
   STATE[key] = getNextElement(values, STATE[key]);
-  commit();
 }
 
 function resetRestrictionAndEngine() {
@@ -91,24 +90,27 @@ function resetRestrictionAndEngine() {
 function loadEvents() {
   DOM.mode.onclick = () => {
     cycleSelection('selectedMode', getCurrentModes());
-    resetRestrictionAndEngine();
+    STATE.selectedRestriction = getCurrentRestrictions()[0];
+    STATE.selectedEngine = getCurrentEngines()[0];
     commit();
   };
 
   DOM.track.onclick = () => {
     cycleSelection('selectedTrack', getCurrentTracks());
-    resetRestrictionAndEngine();
+    STATE.selectedRestriction = getCurrentRestrictions()[0];
+    STATE.selectedEngine = getCurrentEngines()[0];
     commit();
   };
 
   DOM.restriction.onclick = () => {
-    STATE.selectedRestriction = getNextElement(getCurrentRestrictions(), STATE.selectedRestriction);
+    cycleSelection('selectedRestriction', getCurrentRestrictions())
     STATE.selectedEngine = getCurrentEngines()[0];
     commit();
   };
 
   DOM.engine.onclick = () => {
     cycleSelection('selectedEngine', getCurrentEngines());
+    commit();
   };
 }
 
@@ -117,7 +119,7 @@ function renderHeader() {
   DOM.track.textContent = STATE.selectedTrack;
   DOM.restriction.textContent = STATE.selectedRestriction;
   DOM.engine.textContent = STATE.selectedEngine;
-  DOM.background.setAttribute('src', `assets/images/tracks/${STATE.selectedTrack}.png`);
+  DOM.background.setAttribute('src', `../assets/images/tracks/${STATE.selectedTrack}.png`);
 }
 
 function ensureMetricsRoot(data, mode, track, restriction, engine) {

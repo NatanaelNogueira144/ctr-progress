@@ -23,16 +23,25 @@ main.content {
   padding: 2px;
 }
 
-span {
+h1, p, span {
   background-image: linear-gradient(#c4c7e8, #a4a3e7);
   background-clip: text;
   color: transparent;
   user-select: none;
   font-weight: normal;
   -webkit-text-stroke-color: black;
+}
+
+p, span {
   background-size: 1.75rem 1.75rem;
   font-size: 1.75rem;
   -webkit-text-stroke-width: 0.6px;
+}
+
+h1 {
+  background-size: 3rem 3rem;
+  font-size: 3rem;
+  -webkit-text-stroke-width: 1.2px;
 }
 
 .orange {
@@ -120,6 +129,17 @@ button.block {
 
 button:hover {
   animation: alternateColors 1.5s infinite;
+}
+
+img.logo {
+  width: 128px;
+  height: auto;
+}
+
+div.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0px;
 }
 
 div.empty-bar {
