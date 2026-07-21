@@ -1,5 +1,6 @@
 const STORAGE_KEY = '@ctr-progress:selected';
 const DATA_KEY = '@ctr-progress:data';
+const SETTINGS_KEY = '@ctr-progress:settings';
 
 function readStorage(key, fallback = {}) {
   try {

@@ -8,9 +8,7 @@
   <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <div class="background-wrapper">
-    <img id="background" src="" alt="Background" class="background-image" />
-  </div>
+  <div id="background"></div>
 
   <main class="content">
     <div class="card-group">
@@ -30,26 +28,8 @@
       </div>
     </div>
 
-    <table>
-      <thead>
-        <tr id="categories"></tr>
-      </thead>
-      <tbody>
-        <tr id="pbs"></tr>
-        <tr id="goals"></tr>
-        <tr id="wrs"></tr>
-      </tbody>
-    </table>
-
-    <table>
-      <thead>
-        <tr>
-          <th><span class="orange">Grind Results</span></th>
-          <th><span class="orange">Time</span></th>
-        </tr>
-      </thead>
-      <tbody id="grindCategories"></tbody>
-    </table>
+    <div id="milestones-table"></div>
+    <div id="grind-table"></div>
   </main>
 
   <script src="../assets/js/controls.js"></script>

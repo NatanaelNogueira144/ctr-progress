@@ -8,7 +8,22 @@ const STATE = {
   selectedTrack: SELECTED.track ?? Track.CrashCove,
   selectedRestriction: SELECTED.restriction ?? Restriction.NoRestriction,
   selectedEngine: SELECTED.engine ?? Engine.GrindBest,
-  data: readStorage(DATA_KEY)
+  data: readStorage(DATA_KEY),
+  settings: readStorage(SETTINGS_KEY, {
+    transparentBackground: false,
+    milestonesTable: {
+      showPersonalBests: true,
+      showGoals: true,
+      showWorldRecords: true
+    },
+    grindTable: {
+      showBestCourse: true,
+      showBestLap: true,
+      showBestLapInCourse: true,
+      showBestSL: true,
+      showBestPace: true
+    }
+  })
 };
 
 const DOM = {
@@ -17,11 +32,8 @@ const DOM = {
   restriction: document.getElementById('restriction'),
   engine: document.getElementById('engine'),
   background: document.getElementById('background'),
-  categories: document.getElementById('categories'),
-  grindCategories: document.getElementById('grindCategories'),
-  pbs: document.getElementById('pbs'),
-  wrs: document.getElementById('wrs'),
-  goals: document.getElementById('goals'),
+  milestonesTable: document.getElementById('milestones-table'),
+  grindTable: document.getElementById('grind-table')
 };
 
 function saveState() {
@@ -119,7 +131,18 @@ function renderHeader() {
   DOM.track.textContent = STATE.selectedTrack;
   DOM.restriction.textContent = STATE.selectedRestriction;
   DOM.engine.textContent = STATE.selectedEngine;
-  DOM.background.setAttribute('src', `../assets/images/tracks/${STATE.selectedTrack}.png`);
+  DOM.background.replaceChildren();
+  
+  if (!STATE.settings.transparentBackground) {
+    const image = document.createElement('img');
+    DOM.background.classList = 'background-wrapper';
+
+    image.classList = 'background-image';
+    image.setAttribute('src', `../assets/images/tracks/${STATE.selectedTrack}.png`);
+    DOM.background.appendChild(image);
+  } else {
+    DOM.background.classList = 'transparent-background-wrapper';
+  }
 }
 
 function ensureMetricsRoot(data, mode, track, restriction, engine) {
@@ -290,6 +313,23 @@ function createEditableTimeCell({
 }
 
 function renderGrindTable(mode, grind) {
+  if (
+    !STATE.settings.grindTable || 
+    (
+      mode === Mode.RelicRace &&
+      !STATE.settings.grindTable.showBestCourse
+    ) || 
+    (
+      !STATE.settings.grindTable.showBestCourse &&
+      !STATE.settings.grindTable.showBestLap &&
+      !STATE.settings.grindTable.showBestLapInCourse &&
+      !STATE.settings.grindTable.showBestSL &&
+      !STATE.settings.grindTable.showBestPace
+    )
+  ) {
+    return;
+  }
+
   function createGrindRow(title, type, time) {
     const formattedTime = type === 'bestPace'
       ? formatPace(time)
@@ -328,26 +368,72 @@ function renderGrindTable(mode, grind) {
       },
     });
 
+    titleTd.classList = 'text-right';
     titleTd.appendChild(createSpan('orange', title));
     tr.append(titleTd, timeTd);
 
     return tr;
   }
 
-  DOM.grindCategories.replaceChildren();
+  function createGrindTable() {
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const headersTr = document.createElement('tr');
+    const grindResultsTh = document.createElement('th');
+    const grindResultsThSpan = document.createElement('span');
+    const timeTh = document.createElement('th');
+    const timeThSpan = document.createElement('span');
+    const tbody = document.createElement('tbody');
 
-  DOM.grindCategories.appendChild(
-    createGrindRow('Best Course', 'bestCourse', grind?.bestCourse)
-  );
+    grindResultsTh.classList = 'text-right';
+    grindResultsThSpan.classList = 'orange';
+    grindResultsThSpan.textContent = 'Grind Results';
+    timeThSpan.classList = 'orange';
+    timeThSpan.textContent = 'Time';
 
-  if (mode === Mode.TimeTrial) {
-    DOM.grindCategories.append(
-      createGrindRow('Best Lap', 'bestLap', grind?.bestLap),
-      createGrindRow('Best in Course', 'bestLapInCourse', grind?.bestLapInCourse),
-      createGrindRow('Best SL', 'bestSL', grind?.bestSL),
-      createGrindRow('Best Pace', 'bestPace', grind?.bestPace)
-    );
+    if (STATE.settings.grindTable.showBestCourse) {
+      tbody.appendChild(
+        createGrindRow('Best Course', 'bestCourse', grind?.bestCourse)
+      );
+    }
+
+    if (mode === Mode.TimeTrial) {
+      if (STATE.settings.grindTable.showBestLap) {
+        tbody.appendChild(
+          createGrindRow('Best Lap', 'bestLap', grind?.bestLap)
+        );
+      }
+
+      if (STATE.settings.grindTable.showBestLapInCourse) {
+        tbody.appendChild(
+          createGrindRow('Best in Course', 'bestLapInCourse', grind?.bestLapInCourse)
+        );
+      }
+
+      if (STATE.settings.grindTable.showBestSL) {
+        tbody.appendChild(
+          createGrindRow('Best SL', 'bestSL', grind?.bestSL)
+        );
+      }
+
+      if (STATE.settings.grindTable.showBestPace) {
+        tbody.appendChild(
+          createGrindRow('Best Pace', 'bestPace', grind?.bestPace)
+        );
+      }
+    }
+
+    grindResultsTh.appendChild(grindResultsThSpan);
+    timeTh.appendChild(timeThSpan);
+    headersTr.append(grindResultsTh, timeTh);
+    thead.appendChild(headersTr);
+    table.append(thead, tbody);
+
+    return table;
   }
+
+  DOM.grindTable.replaceChildren();
+  DOM.grindTable.appendChild(createGrindTable());
 }
 
 function createCategoryHeaderCell(title) {
@@ -358,6 +444,7 @@ function createCategoryHeaderCell(title) {
 
 function createTypeCell(title) {
   const td = document.createElement('td');
+  td.classList = 'text-right';
   td.appendChild(createSpan('orange', title));
   return td;
 }
@@ -393,34 +480,67 @@ function createCategoryTimeCell(category, type, time, isGoalAchieved = false) {
   });
 }
 
-function renderCategoriesTable(categories) {
-  const headerCells = [document.createElement('th')];
-  const pbCells = [createTypeCell('PB')];
-  const wrCells = [createTypeCell('WR')];
-  const goalCells = [createTypeCell('Goal')];
+function renderMilestonesTable(categories) {
+  if (
+    !STATE.settings.milestonesTable || 
+    (
+      !STATE.settings.milestonesTable.showPersonalBests &&
+      !STATE.settings.milestonesTable.showGoals &&
+      !STATE.settings.milestonesTable.showWorldRecords
+    )
+  ) {
+    return;
+  }
 
-  getCurrentCategories().forEach((category) => {
-    const data = categories?.[category];
-    const pbTime = data?.personalBest;
-    const wrTime = data?.worldRecord;
-    const goalTime = data?.goal;
-    const isGoalAchieved = Boolean(pbTime && goalTime && pbTime < goalTime);
+  function createMilestonesTable() {
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+    const pbsTr = document.createElement('tr');
+    const goalsTr = document.createElement('tr');
+    const wrsTr = document.createElement('tr');
 
-    headerCells.push(createCategoryHeaderCell(category));
-    pbCells.push(createCategoryTimeCell(category, 'personalBest', pbTime));
-    wrCells.push(createCategoryTimeCell(category, 'worldRecord', wrTime));
-    goalCells.push(createCategoryTimeCell(category, 'goal', goalTime, isGoalAchieved));
-  });
+    const headerCells = [document.createElement('th')];
 
-  DOM.categories.replaceChildren();
-  DOM.pbs.replaceChildren();
-  DOM.wrs.replaceChildren();
-  DOM.goals.replaceChildren();
+    const pbCells = [createTypeCell('PB')];
+    const wrCells = [createTypeCell('WR')];
+    const goalCells = [createTypeCell('Goal')];
 
-  DOM.categories.append(...headerCells);
-  DOM.pbs.append(...pbCells);
-  DOM.wrs.append(...wrCells);
-  DOM.goals.append(...goalCells);
+    getCurrentCategories().forEach((category) => {
+      const data = categories?.[category];
+      const pbTime = data?.personalBest;
+      const wrTime = data?.worldRecord;
+      const goalTime = data?.goal;
+      const isGoalAchieved = Boolean(pbTime && goalTime && pbTime < goalTime);
+
+      headerCells.push(createCategoryHeaderCell(category));
+      pbCells.push(createCategoryTimeCell(category, 'personalBest', pbTime));
+      wrCells.push(createCategoryTimeCell(category, 'worldRecord', wrTime));
+      goalCells.push(createCategoryTimeCell(category, 'goal', goalTime, isGoalAchieved));
+    });
+
+    thead.append(...headerCells);
+    if (STATE.settings.milestonesTable.showPersonalBests) {
+      pbsTr.append(...pbCells);
+      tbody.appendChild(pbsTr);
+    }
+
+    if (STATE.settings.milestonesTable.showGoals) {
+      goalsTr.append(...goalCells);
+      tbody.appendChild(goalsTr);
+    }
+
+    if (STATE.settings.milestonesTable.showWorldRecords) {
+      wrsTr.append(...wrCells);
+      tbody.appendChild(wrsTr);
+    }
+
+    table.append(thead, tbody);
+    return table;
+  }
+
+  DOM.milestonesTable.replaceChildren();
+  DOM.milestonesTable.appendChild(createMilestonesTable());
 }
 
 function render() {
@@ -428,8 +548,8 @@ function render() {
   const grind = metrics ? getLastGrind(metrics.grinds) : null;
 
   renderHeader();
+  renderMilestonesTable(metrics?.categories);
   renderGrindTable(STATE.selectedMode, grind);
-  renderCategoriesTable(metrics?.categories);
 }
 
 function loadData() {

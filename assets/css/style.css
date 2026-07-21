@@ -16,7 +16,6 @@
 
 body {
   overflow: hidden;
-  text-align: center;
 }
 
 main.content {
@@ -42,6 +41,7 @@ h1 {
   background-size: 3rem 3rem;
   font-size: 3rem;
   -webkit-text-stroke-width: 1.2px;
+  line-height: 3rem;
 }
 
 .orange {
@@ -56,11 +56,31 @@ h1 {
   background-image: linear-gradient(#a2e408, #029607);
 }
 
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
 div.background-wrapper {
   position: absolute;
   width: 100%;
   height: 100vh;
   background-color: #000;
+  z-index: -1;
+}
+
+div.transparent-background-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background-color: transparent;
   z-index: -1;
 }
 
@@ -178,6 +198,12 @@ input[type=ctrtime] {
   width: 80px;
 }
 
+input[type=checkbox] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
 input:focus, select:focus {
   border-bottom: 1.5px solid #e8c754ff;
   cursor: text;
@@ -200,6 +226,12 @@ div.form-group {
   display: flex;
   margin-bottom: 1rem;
   gap: 10px;
+}
+
+div.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 @keyframes alternateColors {

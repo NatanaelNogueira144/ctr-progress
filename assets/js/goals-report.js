@@ -1,4 +1,5 @@
 const DATA = readStorage(DATA_KEY);
+const SETTINGS = readStorage(SETTINGS_KEY);
 
 const DOM = {
   all: {
@@ -107,7 +108,23 @@ function renderProgressBar({ emptyBar, filledBar }, metric) {
   emptyBar.querySelector("span").textContent = `${percentage}% - ${metric.beaten}/${metric.total}`;
 }
 
+function renderBackground() {
+  document.getElementById('background').replaceChildren();
+  if (!SETTINGS.transparentBackground) {
+    const image = document.createElement('img');
+    document.getElementById('background').classList = 'background-wrapper';
+
+    image.classList = 'background-image';
+    image.setAttribute('src', `../assets/images/tracks/Menu.png`);
+    document.getElementById('background').appendChild(image);
+  } else {
+    document.getElementById('background').classList = 'transparent-background-wrapper';
+  }
+}
+
 function render() {
+  renderBackground();
+
   const metrics = createMetrics();
 
   for (const [mode, tracks] of Object.entries(CHARTS)) {
