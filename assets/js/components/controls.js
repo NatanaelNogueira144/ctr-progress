@@ -1,9 +1,22 @@
 (function () {
+  const BASE_PATH =
+    window.location.hostname.includes('github.io')
+      ? '/ctr-progress'
+      : '';
+
+  function withBasePath(path) {
+    if (path === '/') {
+      return BASE_PATH ? `${BASE_PATH}/` : '/';
+    }
+
+    return `${BASE_PATH}${path.startsWith('/') ? path : `/${path}`}`;
+  }
+
   const routes = {
-    m: '/main',
-    g: '/goals-report',
-    s: '/settings',
-    h: '/',
+    m: withBasePath('/main'),
+    g: withBasePath('/goals-report'),
+    s: withBasePath('/settings'),
+    h: withBasePath('/'),
   };
 
   document.addEventListener('keydown', function (event) {
