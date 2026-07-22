@@ -18,7 +18,7 @@
 
     const image = document.createElement('img');
     image.className = 'background-image';
-    image.src = '/assets/images/tracks/Menu.png';
+    image.src = background.getAttribute('initial-src');
     image.alt = '';
 
     background.appendChild(image);
