@@ -4,82 +4,99 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CTR Progress - Goals Report</title>
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
   <div id="background"></div>
 
   <main class="content">
-    <div class="card-group">
-      <div class="card">
-        <p class="orange text-center">All Goals</p>
+    <div class="card card-body flex flex-column gap-sm">
+      <div class="bar-wrapper">
+        <p class="text-orange text-center">All Goals</p>
         <div id="all-goals-empty-bar" class="empty-bar">
-          <div id="all-goals-filled-bar" class="filled-bar orange"></div>
+          <div id="all-goals-filled-bar" class="filled-bar text-orange"></div>
           <span class="white text-center"></span>
         </div>
-        <hr>
-        <p class="orange text-center">Grind Best Goals</p>
+      </div>
+
+      <div class="bar-wrapper">
+        <p class="text-orange text-center">Grind Best Goals</p>
         <div id="grind-best-goals-empty-bar" class="empty-bar">
-          <div id="grind-best-goals-filled-bar" class="filled-bar orange"></div>
+          <div id="grind-best-goals-filled-bar" class="filled-bar text-orange"></div>
           <span class="white text-center"></span>
         </div>
-        <hr>
-        <p class="orange text-center">Relic Race Goals</p>
+      </div>
+
+      <div class="bar-wrapper">
+        <p class="text-orange text-center">Relic Race Goals</p>
         <div id="relic-race-goals-empty-bar" class="empty-bar">
-          <div id="relic-race-goals-filled-bar" class="filled-bar orange"></div>
+          <div id="relic-race-goals-filled-bar" class="filled-bar text-orange"></div>
           <span class="white text-center"></span>
         </div>
-        <hr>
-        <p class="orange text-center">Speed Char. Goals</p>
+      </div>
+
+      <div class="bar-wrapper">
+        <p class="text-orange text-center">Speed Char. Goals</p>
         <div id="speed-char-goals-empty-bar" class="empty-bar">
-          <div id="speed-char-goals-filled-bar" class="filled-bar orange"></div>
+          <div id="speed-char-goals-filled-bar" class="filled-bar text-orange"></div>
           <span class="white text-center"></span>
         </div>
-        <hr>
-        <p class="orange text-center">Accel. Char. Goals</p>
+      </div>
+
+      <div class="bar-wrapper">
+        <p class="text-orange text-center">Accel. Char. Goals</p>
         <div id="accel-char-goals-empty-bar" class="empty-bar">
-          <div id="accel-char-goals-filled-bar" class="filled-bar orange"></div>
+          <div id="accel-char-goals-filled-bar" class="filled-bar text-orange"></div>
           <span class="white text-center"></span>
         </div>
-        <hr>
-        <p class="orange text-center">Balanced Char. Goals</p>
+      </div>
+
+      <div class="bar-wrapper">
+        <p class="text-orange text-center">Balanced Char. Goals</p>
         <div id="balanced-char-goals-empty-bar" class="empty-bar">
-          <div id="balanced-char-goals-filled-bar" class="filled-bar orange"></div>
+          <div id="balanced-char-goals-filled-bar" class="filled-bar text-orange"></div>
           <span class="white text-center"></span>
         </div>
-        <hr>
-        <p class="orange text-center">Turn Char. Goals</p>
+      </div>
+
+      <div class="bar-wrapper">
+        <p class="text-orange text-center">Turn Char. Goals</p>
         <div id="turn-char-goals-empty-bar" class="empty-bar">
-          <div id="turn-char-goals-filled-bar" class="filled-bar orange"></div>
+          <div id="turn-char-goals-filled-bar" class="filled-bar text-orange"></div>
           <span class="white text-center"></span>
         </div>
-        <hr>
-        <p class="orange text-center">Skipless Goals</p>
+      </div>
+
+      <div class="bar-wrapper">
+        <p class="text-orange text-center">Skipless Goals</p>
         <div id="skipless-goals-empty-bar" class="empty-bar">
-          <div id="skipless-goals-filled-bar" class="filled-bar orange"></div>
+          <div id="skipless-goals-filled-bar" class="filled-bar text-orange"></div>
           <span class="white text-center"></span>
         </div>
-        <hr>
-        <p class="orange text-center">Classic Goals</p>
+      </div>
+      
+      <div class="bar-wrapper">
+        <p class="text-orange text-center">Classic Goals</p>
         <div id="classic-goals-empty-bar" class="empty-bar">
-          <div id="classic-goals-filled-bar" class="filled-bar orange"></div>
+          <div id="classic-goals-filled-bar" class="filled-bar text-orange"></div>
           <span class="white text-center"></span>
         </div>
       </div>
     </div>
   </main>
 
-  <script src="../assets/js/controls.js"></script>
-  <script src="../assets/js/utils/date-utils.js"></script>
-  <script src="../assets/js/utils/array-utils.js"></script>
-  <script src="../assets/js/utils/categories.js"></script>
-  <script src="../assets/js/utils/engines.js"></script>
-  <script src="../assets/js/utils/modes.js"></script>
-  <script src="../assets/js/utils/restrictions.js"></script>
-  <script src="../assets/js/utils/tracks.js"></script>
-  <script src="../assets/js/utils/charts.js"></script>
-  <script src="../assets/js/storage.js"></script>
-  <script src="../assets/js/goals-report.js"></script>
+  <script src="/assets/js/storage.js"></script>
+  <script src="/assets/js/utils/date-utils.js"></script>
+  <script src="/assets/js/utils/array-utils.js"></script>
+  <script src="/assets/js/utils/categories.js"></script>
+  <script src="/assets/js/utils/engines.js"></script>
+  <script src="/assets/js/utils/modes.js"></script>
+  <script src="/assets/js/utils/restrictions.js"></script>
+  <script src="/assets/js/utils/tracks.js"></script>
+  <script src="/assets/js/utils/charts.js"></script>
+  <script src="/assets/js/components/controls.js"></script>
+  <script src="/assets/js/components/background.js"></script>
+  <script src="/assets/js/pages/goals-report.js"></script>
 </body>
 </html>

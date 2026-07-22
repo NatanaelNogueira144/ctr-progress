@@ -4,44 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CTR Progress - Main</title>
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
   <div id="background"></div>
 
   <main class="content">
-    <div class="card-group">
+    <div class="flex flex-column gap-sm">
       <div class="card">
         <button class="block">
-          <span id="mode" class="orange">Time Trial</span>
+          <span id="mode" class="text-orange">Time Trial</span>
         </button>
         <button class="block">
-          <span id="track" class="orange">Crash Cove</span>
+          <span id="track" class="text-orange">Crash Cove</span>
         </button>
         <button class="block">
-          <span id="restriction" class="orange">No Restriction</span>
+          <span id="restriction" class="text-orange">No Restriction</span>
         </button>
         <button class="block">
-          <span id="engine" class="orange">Grind Best</span>
+          <span id="engine" class="text-orange">Grind Best</span>
         </button>
       </div>
+  
+      <div id="milestones-table"></div>
+      <div id="grind-table"></div>
     </div>
-
-    <div id="milestones-table"></div>
-    <div id="grind-table"></div>
   </main>
 
-  <script src="../assets/js/controls.js"></script>
-  <script src="../assets/js/utils/date-utils.js"></script>
-  <script src="../assets/js/utils/array-utils.js"></script>
-  <script src="../assets/js/utils/categories.js"></script>
-  <script src="../assets/js/utils/engines.js"></script>
-  <script src="../assets/js/utils/modes.js"></script>
-  <script src="../assets/js/utils/restrictions.js"></script>
-  <script src="../assets/js/utils/tracks.js"></script>
-  <script src="../assets/js/utils/charts.js"></script>
-  <script src="../assets/js/storage.js"></script>
-  <script src="../assets/js/main.js"></script>
+  <script src="/assets/js/storage.js"></script>
+  <script src="/assets/js/utils/date-utils.js"></script>
+  <script src="/assets/js/utils/array-utils.js"></script>
+  <script src="/assets/js/utils/categories.js"></script>
+  <script src="/assets/js/utils/engines.js"></script>
+  <script src="/assets/js/utils/modes.js"></script>
+  <script src="/assets/js/utils/restrictions.js"></script>
+  <script src="/assets/js/utils/tracks.js"></script>
+  <script src="/assets/js/utils/charts.js"></script>
+  <script src="/assets/js/components/controls.js"></script>
+  <script src="/assets/js/pages/main.js"></script>
 </body>
 </html>

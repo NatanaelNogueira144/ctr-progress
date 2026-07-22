@@ -4,34 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CTR Progress</title>
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
   <div id="background"></div>
 
   <main class="content">
     <div class="logo-wrapper">
-      <img class="logo" src="assets/images/logo.png" alt="">
+      <img class="logo" src="/assets/images/logo.png" alt="">
     </div>
 
-    <h1 class="orange text-center">CTR Progress</h1>
+    <h1 class="text-orange text-center">CTR Progress</h1>
 
-    <p class="text-center">
-      Press <span class="orange">M</span> to go to the main page
-    </p>
-    <p class="text-center">
-      Press <span class="orange">G</span> to go to the goals report page
-    </p>
-    <p class="text-center">
-      Press <span class="orange">S</span> to go to the settings page
-    </p>
-    <p class="text-center">
-      Press <span class="orange">H</span> to return to this page
-    </p>
+    <ul class="text-center" aria-label="Keyboard shortcuts">
+      <li>Press <span class="text-orange">M</span> to go to the main page</li>
+      <li>Press <span class="text-orange">G</span> to go to the goals report page</li>
+      <li>Press <span class="text-orange">S</span> to go to the settings page</li>
+      <li>Press <span class="text-orange">H</span> to return to this page</li>
+    </ul>
   </main>
 
-  <script src="assets/js/home.js"></script>
-  <script src="assets/js/controls.js"></script>
+  <script src="/assets/js/storage.js"></script>
+  <script src="/assets/js/components/background.js"></script>
+  <script src="/assets/js/components/controls.js"></script>
+  <script src="/assets/js/pages/home.js"></script>
 </body>
 </html>

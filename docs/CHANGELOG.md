@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-07-22
+
+### Added 
+
+- Proper text alignment.
+- Code cleaning and refactoring.
+- `/settings` page for enabling/disabling transparent background and metrics.
+- Main page with keyboard shortcuts for the pages.
+
+### Changed
+
+- `/goal-progress` page to `/goals-report` page.
+
+### Fixed
+
+- Invalid restriction/engine when changing modes or tracks in the main page.
+
 ## [0.1.0] - 2026-07-20
 
 ### Added

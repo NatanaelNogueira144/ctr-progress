@@ -11,7 +11,9 @@ CTR Progress is designed to be used as a narrow side window in OBS, similar to t
 - Filter data by mode, track, restriction, and engine.
 - Show a compact layout suitable for OBS browser sources.
 - Store all progress locally in the browser using `localStorage`.
-- View goal completion status on the `/goal-progress` page.
+- Navigate easily through pages using keyboard shortcuts.
+- View goal completion status on the `/goals-report` page.
+- Customize your way on the `/settings` page.
 - Compare player progress against current world records.
 
 ## How It Works
@@ -27,10 +29,10 @@ For each selected combination, the overlay can display:
 
 - Personal best times
 - Goal times
-- Current world record times
+- Current world record times (the user must feed the tool with these)
 - Current grind metrics
 
-The project also includes a separate `/goal-progress` page that shows progress bars for completed goals, making it easier to visualize overall improvement.
+The project also includes a separate `/goals-report` page that shows progress bars for completed goals, making it easier to visualize overall improvement.
 
 ## Getting Started
 
@@ -87,15 +89,24 @@ To use CTR Progress in OBS:
 
 This makes it work similarly to traditional speedrun split panels, but focused on CTR practice data.
 
-## Goal Progress Page
+## Goals Report Page
 
-The `/goal-progress` page provides a higher-level summary of progress.
+The `/goals-report` page provides a higher-level summary of progress.
 
 It displays progress bars showing how many goals have already been achieved, which makes it useful for:
 
 - Reviewing long-term progress
 - Tracking category completion
 - Showing milestone progress during streams
+
+## Settings Page
+
+The `/settings` page provides a few options for displaying.
+
+It displays a few options for checking/unchecking that can hide or show features, such as:
+
+- Background (can be transparent)
+- Personal bests, goals, world records or grind metrics in the main page
 
 ## Data Persistence
 
@@ -130,7 +141,6 @@ Possible future improvements:
 
 - Import and export progress data
 - Sync data between browsers
-- Better mobile or tablet support
 - Additional summary views
 - More detailed grind history
 
