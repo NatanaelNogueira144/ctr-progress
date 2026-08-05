@@ -1,22 +1,9 @@
 (function () {
-  const current = window.location.pathname.replace(/\\/g, '/');
-
-  function getBasePath() {
-    if (window.location.protocol === 'file:') {
-      const marker = '/ctr-progress/';
-      const idx = current.lastIndexOf(marker);
-      if (idx !== -1) return current.slice(0, idx + marker.length);
-      return current.slice(0, current.lastIndexOf('/') + 1);
-    }
-
-    if (location.hostname === 'natanaelnogueira144.github.io') {
-      return '/ctr-progress/';
-    }
-
-    return '/';
-  }
-
-  const BASE_PATH = getBasePath();
+  const isEditableElement = (el) =>
+    el instanceof HTMLElement &&
+    (el.tagName === 'INPUT' ||
+     el.tagName === 'TEXTAREA' ||
+     el.isContentEditable);
 
   const routes = {
     m: 'main/index.html',
@@ -25,31 +12,68 @@
     h: 'index.html',
   };
 
-  function toUrl(path) {
-    return new URL(path, location.origin + BASE_PATH).href;
+  const path = window.location.pathname.replace(/\\/g, '/');
+  const isGitHubPages = window.location.hostname.includes('github.io');
+
+  function getProjectBase() {
+    if (!isGitHubPages) return '';
+
+    const parts = path.split('/').filter(Boolean);
+
+    // Ex.: /ctr-progress/main/index.html -> base = /ctr-progress
+    // Ex.: /ctr-progress/index.html -> base = /ctr-progress
+    return parts.length > 0 ? `/${parts[0]}` : '/ctr-progress';
   }
 
-  function isSamePage(targetPath) {
-    const normalizedCurrent = current.replace(/\/+$/, '');
-    const normalizedTarget = new URL(targetPath, location.origin + BASE_PATH).pathname.replace(/\\/g, '/').replace(/\/+$/, '');
-    return normalizedCurrent === normalizedTarget;
+  function getCurrentPage() {
+    if (path.endsWith('/main/index.html') || path.endsWith('/main/')) return 'main';
+    if (path.endsWith('/goals-report/index.html') || path.endsWith('/goals-report/')) return 'goals-report';
+    if (path.endsWith('/settings/index.html') || path.endsWith('/settings/')) return 'settings';
+
+    if (path.endsWith('/index.html') || /\/ctr-progress\/?$/.test(path)) {
+      return 'home';
+    }
+
+    return 'unknown';
+  }
+
+  function buildRelativePath(target) {
+    const current = getCurrentPage();
+    const cleanTarget = target.replace(/^\/+/, '');
+    const basePath = getProjectBase();
+
+    if (
+      (current === 'main' && cleanTarget === 'main/index.html') ||
+      (current === 'goals-report' && cleanTarget === 'goals-report/index.html') ||
+      (current === 'settings' && cleanTarget === 'settings/index.html') ||
+      (current === 'home' && cleanTarget === 'index.html')
+    ) {
+      return null;
+    }
+
+    if (isGitHubPages) {
+      return `${basePath}/${cleanTarget}`;
+    }
+
+    if (current === 'main' || current === 'goals-report' || current === 'settings') {
+      if (cleanTarget === 'index.html') return '../index.html';
+      return '../' + cleanTarget;
+    }
+
+    return './' + cleanTarget;
   }
 
   document.addEventListener('keydown', function (event) {
     const target = event.target;
-    const isEditable =
-      target instanceof HTMLElement &&
-      (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable);
-
-    if (isEditable) return;
+    if (isEditableElement(target)) return;
 
     const key = event.key.toLowerCase();
     const route = routes[key];
     if (!route) return;
 
-    const url = toUrl(route);
-    if (isSamePage(route)) return;
+    const nextPath = buildRelativePath(route);
+    if (!nextPath) return;
 
-    window.location.href = url;
+    window.location.href = nextPath;
   });
 })();
