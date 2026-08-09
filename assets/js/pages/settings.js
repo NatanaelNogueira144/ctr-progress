@@ -31,6 +31,7 @@
 
   const dom = {
     settingsCard: document.getElementById('settings-card'),
+    eraseAllDataButton: document.getElementById('erase-all-data-button'),
   };
 
   if (!dom.settingsCard) return;
@@ -74,6 +75,13 @@
   function render() {
     renderSettings();
   }
+
+  dom.eraseAllDataButton.addEventListener("click", () => {
+    if (confirm('Are you sure about erasing all your data? This cannot be reverted!')) {
+      writeStorage(DATA_KEY, {});
+      alert("All your data was deleted successfully.");
+    }
+  });
 
   render();
 })();
