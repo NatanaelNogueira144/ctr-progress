@@ -263,6 +263,7 @@
     displayValue,
     inputValues,
     onSave,
+    onErase,
     isGoalAchieved = false,
   }) {
     const td = document.createElement('td');
@@ -300,13 +301,21 @@
       editDiv,
       inputs,
     }));
-  
-    const cancelButton = createActionButton('X', 'text-red', () => {
+
+    const cancelButton = createActionButton('X', 'text-orange', () => {
       toggleButton.style.display = 'block';
       editDiv.style.display = 'none';
     });
   
-    editDiv.append(...inputs, saveButton, cancelButton);
+    const eraseButton = createActionButton('E', 'text-red', () => onErase({
+      td,
+      toggleButton,
+      toggleButtonSpan,
+      editDiv,
+      inputs,
+    }));
+  
+    editDiv.append(...inputs, saveButton, cancelButton, eraseButton);
     toggleButton.appendChild(toggleButtonSpan);
     td.append(toggleButton, editDiv);
   
@@ -363,6 +372,23 @@
           toggleButtonSpan.textContent = type === 'bestPace'
             ? formatPace([parsedTime, parsedTime2])
             : inputs[0].value;
+  
+          toggleButton.style.display = 'block';
+          editDiv.style.display = 'none';
+        },
+        onErase: ({ toggleButton, toggleButtonSpan, editDiv }) => {
+          saveTime({
+            mode: STATE.selectedMode,
+            track: STATE.selectedTrack,
+            restriction: STATE.selectedRestriction,
+            engine: STATE.selectedEngine,
+            type,
+            time: null,
+          });
+  
+          toggleButtonSpan.textContent = type === 'bestPace'
+            ? formatPace(null)
+            : '-:--.--';
   
           toggleButton.style.display = 'block';
           editDiv.style.display = 'none';
@@ -475,6 +501,21 @@
         });
   
         toggleButtonSpan.textContent = inputs[0].value;
+        toggleButton.style.display = 'block';
+        editDiv.style.display = 'none';
+      },
+      onErase: ({ toggleButton, toggleButtonSpan, editDiv }) => {
+        saveTime({
+          mode: STATE.selectedMode,
+          track: STATE.selectedTrack,
+          restriction: STATE.selectedRestriction,
+          engine: STATE.selectedEngine,
+          category,
+          type,
+          time: null,
+        });
+  
+        toggleButtonSpan.textContent = '-:--.--';
         toggleButton.style.display = 'block';
         editDiv.style.display = 'none';
       },
