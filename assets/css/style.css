@@ -90,6 +90,7 @@ main.content {
 
 h1,
 p,
+label,
 span,
 input,
 select,
@@ -100,6 +101,7 @@ button {
 
 h1,
 p,
+label,
 span,
 li {
   background-image: var(--gradient-default);
@@ -111,6 +113,7 @@ li {
 }
 
 p,
+label,
 span,
 li {
   font-size: var(--font-size-body);
@@ -124,7 +127,7 @@ h1 {
   -webkit-text-stroke-width: var(--stroke-width-lg);
 }
 
-h1, p {
+h1, p, label {
   margin: 0;
 }
 
@@ -303,6 +306,28 @@ input:focus {
   outline: transparent;
 }
 
+input[type="file"] {
+  display: none;
+}
+
+.file-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.file-picker__button {
+  background: #222;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+.file-picker__button:hover {
+  animation: var(--animation-button-hover);
+}
+
 .checkbox-group {
   display: flex;
   align-items: center;
@@ -315,6 +340,10 @@ input:focus {
 
 .flex-column {
   flex-direction: column;
+}
+
+.justify-content-center {
+  justify-content: center;
 }
 
 .gap-sm {

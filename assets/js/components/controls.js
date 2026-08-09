@@ -10,6 +10,7 @@
     g: 'goals-report/index.html',
     s: 'settings/index.html',
     e: 'export/index.html',
+    i: 'import/index.html',
     h: 'index.html',
   };
 
@@ -29,6 +30,7 @@
     if (path.endsWith('/goals-report/index.html') || path.endsWith('/goals-report/')) return 'goals-report';
     if (path.endsWith('/settings/index.html') || path.endsWith('/settings/')) return 'settings';
     if (path.endsWith('/export/index.html') || path.endsWith('/export/')) return 'export';
+    if (path.endsWith('/import/index.html') || path.endsWith('/import/')) return 'import';
 
     if (path.endsWith('/index.html') || /\/ctr-progress\/?$/.test(path)) {
       return 'home';
@@ -47,6 +49,7 @@
       (current === 'goals-report' && cleanTarget === 'goals-report/index.html') ||
       (current === 'settings' && cleanTarget === 'settings/index.html') ||
       (current === 'export' && cleanTarget === 'export/index.html') ||
+      (current === 'import' && cleanTarget === 'import/index.html') ||
       (current === 'home' && cleanTarget === 'index.html')
     ) {
       return null;
@@ -56,7 +59,13 @@
       return `${basePath}/${cleanTarget}`;
     }
 
-    if (current === 'main' || current === 'goals-report' || current === 'settings' || current === 'export') {
+    if (
+      current === 'main' || 
+      current === 'goals-report' || 
+      current === 'settings' || 
+      current === 'export' ||
+      current === 'import'
+    ) {
       if (cleanTarget === 'index.html') return '../index.html';
       return '../' + cleanTarget;
     }
