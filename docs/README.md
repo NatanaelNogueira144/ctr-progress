@@ -100,6 +100,8 @@ To use CTR Progress in OBS:
 
 This makes it work similarly to traditional speedrun split panels, but focused on CTR practice data.
 
+The `/export` and `/import` pages should be used in a regular browser, since file downloads and file selection may not be fully supported inside OBS Browser Sources.
+
 ## Goals Report Page
 
 The `/goals-report` page provides a higher-level summary of progress.
