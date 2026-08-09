@@ -9,6 +9,7 @@
     m: 'main/index.html',
     g: 'goals-report/index.html',
     s: 'settings/index.html',
+    e: 'export/index.html',
     h: 'index.html',
   };
 
@@ -20,8 +21,6 @@
 
     const parts = path.split('/').filter(Boolean);
 
-    // Ex.: /ctr-progress/main/index.html -> base = /ctr-progress
-    // Ex.: /ctr-progress/index.html -> base = /ctr-progress
     return parts.length > 0 ? `/${parts[0]}` : '/ctr-progress';
   }
 
@@ -29,6 +28,7 @@
     if (path.endsWith('/main/index.html') || path.endsWith('/main/')) return 'main';
     if (path.endsWith('/goals-report/index.html') || path.endsWith('/goals-report/')) return 'goals-report';
     if (path.endsWith('/settings/index.html') || path.endsWith('/settings/')) return 'settings';
+    if (path.endsWith('/export/index.html') || path.endsWith('/export/')) return 'export';
 
     if (path.endsWith('/index.html') || /\/ctr-progress\/?$/.test(path)) {
       return 'home';
@@ -46,6 +46,7 @@
       (current === 'main' && cleanTarget === 'main/index.html') ||
       (current === 'goals-report' && cleanTarget === 'goals-report/index.html') ||
       (current === 'settings' && cleanTarget === 'settings/index.html') ||
+      (current === 'export' && cleanTarget === 'export/index.html') ||
       (current === 'home' && cleanTarget === 'index.html')
     ) {
       return null;
@@ -55,7 +56,7 @@
       return `${basePath}/${cleanTarget}`;
     }
 
-    if (current === 'main' || current === 'goals-report' || current === 'settings') {
+    if (current === 'main' || current === 'goals-report' || current === 'settings' || current === 'export') {
       if (cleanTarget === 'index.html') return '../index.html';
       return '../' + cleanTarget;
     }

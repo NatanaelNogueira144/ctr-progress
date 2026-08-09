@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTR Progress - Export</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <div id="background" initial-src="../assets/images/tracks/Menu.png"></div>
+
+  <main class="content">
+    <div class="flex flex-column gap-sm">
+      <h1 class="text-orange text-center">Export Data</h1>
+  
+      <div class="card">
+        <div class="card-body">
+          <p class="text-orange text-center">Export Category Data</p>
+        </div>
+  
+        <button class="block" id="export-category-csv-button">
+          <span class="text-green">Export to CSV File</span>
+        </button>
+  
+        <button class="block" id="export-category-xlsx-button">
+          <span class="text-green">Export to XLSX File</span>
+        </button>
+      </div>
+  
+      <div class="card">
+        <div class="card-body">
+          <p class="text-orange text-center">Export Grind Data</p>
+        </div>
+  
+        <button class="block" id="export-grind-csv-button">
+          <span class="text-green">Export to CSV File</span>
+        </button>
+  
+        <button class="block" id="export-grind-xlsx-button">
+          <span class="text-green">Export to XLSX File</span>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/utils/array-utils.js"></script>
+  <script src="../assets/js/utils/date-utils.js"></script>
+  <script src="../assets/js/components/controls.js"></script>
+  <script src="../assets/js/components/background.js"></script>
+  <script src="../assets/js/packages/xlsx.js"></script>
+  <script src="../assets/js/pages/export.js"></script>
+</body>
+</html>
