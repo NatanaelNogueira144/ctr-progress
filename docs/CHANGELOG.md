@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-10-23
+
+### Added
+
+- Added animated background option on `/settings`, for every track.
+- Added "No Fast Penta" and "Only Fast Penta" engine options.
+
+### Changed
+
+- Home, `/settings`, `/import` and `/export` backgrounds changed to `.gif` animation.
+- Improved visuals for home, `/settings`, `/import` and `/export` pages.
+- Changed restriction and engine nomenclatures.
+
+### Removed
+
+- Removed the `/goals-report` page.
+
 ## [0.1.2] - 2026-08-09
 
 ### Added

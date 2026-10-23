@@ -5,43 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CTR Progress - Main</title>
   <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="../assets/media/favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <div id="background" initial-src="../assets/images/tracks/Menu.png"></div>
+  <div id="background" initial-src="../assets/media/Menu.gif"></div>
 
   <main class="content">
-    <div class="flex flex-column gap-sm">
-      <div class="card">
-        <button class="block">
-          <span id="mode" class="text-orange">Time Trial</span>
-        </button>
-        <button class="block">
-          <span id="track" class="text-orange">Crash Cove</span>
-        </button>
-        <button class="block">
-          <span id="restriction" class="text-orange">No Restriction</span>
-        </button>
-        <button class="block">
-          <span id="engine" class="text-orange">Grind Best</span>
-        </button>
+    <div class="flex flex-column align-items-center">
+      <div class="flex flex-column gap-sm">
+        <div class="card">
+          <button class="block">
+            <span class="text-orange">Mode: </span>
+            <span id="mode" class="text-white">Time Trial</span>
+          </button>
+          <button class="block">
+            <span class="text-orange">Track: </span>
+            <span id="track" class="text-white">Crash Cove</span>
+          </button>
+          <button class="block">
+            <span class="text-orange">Category: </span>
+            <span id="category" class="text-white">All Skips</span>
+          </button>
+          <button class="block">
+            <span class="text-orange">Engine: </span>
+            <span id="engine" class="text-white">All Engines</span>
+          </button>
+        </div>
+    
+        <div id="milestones-table"></div>
+        <div id="grind-table"></div>
       </div>
-  
-      <div id="milestones-table"></div>
-      <div id="grind-table"></div>
     </div>
   </main>
 
   <script src="../assets/js/storage.js"></script>
   <script src="../assets/js/utils/date-utils.js"></script>
   <script src="../assets/js/utils/array-utils.js"></script>
-  <script src="../assets/js/utils/categories.js"></script>
+  <script src="../assets/js/utils/run-types.js"></script>
   <script src="../assets/js/utils/engines.js"></script>
   <script src="../assets/js/utils/modes.js"></script>
-  <script src="../assets/js/utils/restrictions.js"></script>
+  <script src="../assets/js/utils/categories.js"></script>
   <script src="../assets/js/utils/tracks.js"></script>
-  <script src="../assets/js/utils/track-restrictions.js"></script>
+  <script src="../assets/js/utils/track-categories.js"></script>
   <script src="../assets/js/utils/charts.js"></script>
+  <script src="../assets/js/components/updater.js"></script>
   <script src="../assets/js/components/controls.js"></script>
   <script src="../assets/js/pages/main.js"></script>
 </body>

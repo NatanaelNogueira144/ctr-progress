@@ -7,9 +7,9 @@
       headers: [
         "Mode",
         "Track",
-        "Restriction",
-        "Engine",
         "Category",
+        "Engine",
+        "Run Type",
         "Personal Best",
         "Goal",
         "World Record"
@@ -24,7 +24,7 @@
         { wch: 15 },
         { wch: 15 }
       ],
-      getRows: getCategoryRows
+      getRows: getRunTypeRows
     },
     grind: {
       fileName: "CTRProgressGrindData",
@@ -33,7 +33,7 @@
       headers: [
         "Mode",
         "Track",
-        "Restriction",
+        "Category",
         "Engine",
         "Best Course",
         "Best Lap",
@@ -58,8 +58,8 @@
 
   function forEachMetric(data, collectionName, callback) {
     for (const [mode, tracks] of Object.entries(data)) {
-      for (const [track, restrictions] of Object.entries(tracks)) {
-        for (const [restriction, engines] of Object.entries(restrictions)) {
+      for (const [track, categories] of Object.entries(tracks)) {
+        for (const [category, engines] of Object.entries(categories)) {
           for (const [engine, engineData] of Object.entries(engines)) {
             const collection = engineData[collectionName] ?? {};
 
@@ -67,7 +67,7 @@
               callback({
                 mode,
                 track,
-                restriction,
+                category,
                 engine,
                 name,
                 metrics
@@ -79,23 +79,23 @@
     }
   }
 
-  function getCategoryRows(data) {
+  function getRunTypeRows(data) {
     const rows = [];
 
     forEachMetric(data, "categories", ({
       mode,
       track,
-      restriction,
+      category,
       engine,
-      name: category,
+      name: runType,
       metrics
     }) => {
       rows.push([
         mode,
         track,
-        restriction,
-        engine,
         category,
+        engine,
+        runType,
         formatOptionalTime(metrics.personalBest, null),
         formatOptionalTime(metrics.goal, null),
         formatOptionalTime(metrics.worldRecord, null)
@@ -111,14 +111,14 @@
     forEachMetric(data, "grinds", ({
       mode,
       track,
-      restriction,
+      category,
       engine,
       metrics
     }) => {
       rows.push([
         mode,
         track,
-        restriction,
+        category,
         engine,
         formatOptionalTime(metrics.bestCourse, null),
         formatOptionalTime(metrics.bestLap, null),

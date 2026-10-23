@@ -1,6 +1,6 @@
 (function () {
   const settings = readStorage(SETTINGS_KEY) ?? {
-    transparentBackground: false,
+    background: 'static',
   };
 
   const background = document.getElementById('background');
@@ -9,7 +9,7 @@
   function renderBackground() {
     background.replaceChildren();
 
-    if (settings.transparentBackground) {
+    if (settings.background === 'transparent') {
       background.className = 'transparent-background-wrapper';
       return;
     }

@@ -7,11 +7,11 @@
   const STATE = {
     selectedMode: SELECTED.mode ?? Mode.TimeTrial,
     selectedTrack: SELECTED.track ?? Track.CrashCove,
-    selectedRestriction: SELECTED.restriction ?? Restriction.NoRestriction,
-    selectedEngine: SELECTED.engine ?? Engine.GrindBest,
+    selectedCategory: SELECTED.category ?? Category.AllSkips,
+    selectedEngine: SELECTED.engine ?? Engine.AllEngines,
     data: readStorage(DATA_KEY),
     settings: readStorage(SETTINGS_KEY, {
-      transparentBackground: false,
+      background: 'static',
       milestonesTable: {
         showPersonalBests: true,
         showGoals: true,
@@ -30,7 +30,7 @@
   const DOM = {
     mode: document.getElementById('mode'),
     track: document.getElementById('track'),
-    restriction: document.getElementById('restriction'),
+    category: document.getElementById('category'),
     engine: document.getElementById('engine'),
     background: document.getElementById('background'),
     milestonesTable: document.getElementById('milestones-table'),
@@ -41,7 +41,7 @@
     writeStorage(STORAGE_KEY, {
       mode: STATE.selectedMode,
       track: STATE.selectedTrack,
-      restriction: STATE.selectedRestriction,
+      category: STATE.selectedCategory,
       engine: STATE.selectedEngine,
     });
   }
@@ -59,8 +59,8 @@
     return getCurrentModeData()[STATE.selectedTrack];
   }
   
-  function getCurrentRestrictionData() {
-    return getCurrentTrackData()[STATE.selectedRestriction];
+  function getCurrentCategoryData() {
+    return getCurrentTrackData()[STATE.selectedCategory];
   }
   
   function getCurrentModes() {
@@ -71,20 +71,20 @@
     return Object.keys(getCurrentModeData());
   }
   
-  function getCurrentRestrictions() {
+  function getCurrentCategories() {
     return Object.keys(getCurrentTrackData());
   }
   
   function getCurrentEngines() {
-    return Object.keys(getCurrentRestrictionData());
+    return Object.keys(getCurrentCategoryData());
   }
   
-  function getCurrentCategories() {
-    return getCurrentRestrictionData()[STATE.selectedEngine];
+  function getCurrentRunTypes() {
+    return getCurrentCategoryData()[STATE.selectedEngine];
   }
   
   function getCurrentMetrics() {
-    return STATE.data?.[STATE.selectedMode]?.[STATE.selectedTrack]?.[STATE.selectedRestriction]?.[STATE.selectedEngine];
+    return STATE.data?.[STATE.selectedMode]?.[STATE.selectedTrack]?.[STATE.selectedCategory]?.[STATE.selectedEngine];
   }
   
   function getLastGrind(grinds = []) {
@@ -95,58 +95,87 @@
     STATE[key] = getNextElement(values, STATE[key]);
   }
   
-  function resetRestrictionAndEngine() {
-    STATE.selectedRestriction = Restriction.NoRestriction;
-    STATE.selectedEngine = Engine.GrindBest;
+  function resetCategoryAndEngine() {
+    STATE.selectedCategory = Category.AllSkips;
+    STATE.selectedEngine = Engine.AllEngines;
   }
   
   function loadEvents() {
-    DOM.mode.onclick = () => {
+    DOM.mode.parentElement.onclick = () => {
       cycleSelection('selectedMode', getCurrentModes());
-      STATE.selectedRestriction = getCurrentRestrictions()[0];
+      STATE.selectedCategory = getCurrentCategories()[0];
       STATE.selectedEngine = getCurrentEngines()[0];
       commit();
     };
   
-    DOM.track.onclick = () => {
+    DOM.track.parentElement.onclick = () => {
       cycleSelection('selectedTrack', getCurrentTracks());
-      STATE.selectedRestriction = getCurrentRestrictions()[0];
+      STATE.selectedCategory = getCurrentCategories()[0];
       STATE.selectedEngine = getCurrentEngines()[0];
       commit();
     };
   
-    DOM.restriction.onclick = () => {
-      cycleSelection('selectedRestriction', getCurrentRestrictions())
+    DOM.category.parentElement.onclick = () => {
+      cycleSelection('selectedCategory', getCurrentCategories())
       STATE.selectedEngine = getCurrentEngines()[0];
       commit();
     };
   
-    DOM.engine.onclick = () => {
+    DOM.engine.parentElement.onclick = () => {
       cycleSelection('selectedEngine', getCurrentEngines());
       commit();
     };
   }
   
   function renderHeader() {
+    const hasTrackChanged = !DOM.track.textContent.includes(STATE.selectedTrack);
+
     DOM.mode.textContent = STATE.selectedMode;
     DOM.track.textContent = STATE.selectedTrack;
-    DOM.restriction.textContent = STATE.selectedRestriction;
+    DOM.category.textContent = STATE.selectedCategory;
     DOM.engine.textContent = STATE.selectedEngine;
+
+    if (!hasTrackChanged) {
+      return;
+    }
+
     DOM.background.replaceChildren();
     
-    if (!STATE.settings.transparentBackground) {
+    if (STATE.settings.background === 'transparent') {
+      DOM.background.classList = 'transparent-background-wrapper';
+      return;
+    } 
+
+    if (STATE.settings.background === 'static') {
       const image = document.createElement('img');
       DOM.background.classList = 'background-wrapper';
   
       image.classList = 'background-image';
-      image.setAttribute('src', `../assets/images/tracks/${STATE.selectedTrack}.png`);
+      image.setAttribute('src', `../assets/media/tracks/static/${STATE.selectedTrack}.png`);
       DOM.background.appendChild(image);
-    } else {
-      DOM.background.classList = 'transparent-background-wrapper';
+      return;
+    } 
+
+    if (STATE.settings.background === 'animated') {
+      const video = document.createElement('video');
+      video.muted = true;
+      video.autoplay = true;
+      video.loop = true;
+      video.classList = 'background-image';
+
+      const source = document.createElement('source');
+      source.setAttribute('src', `../assets/media/tracks/animated/${STATE.selectedTrack}.mp4`);
+      source.setAttribute('type', 'video/mp4');
+
+      video.appendChild(source);
+      
+      DOM.background.classList = 'background-wrapper';
+      DOM.background.appendChild(video);
+      return;
     }
   }
   
-  function ensureMetricsRoot(data, mode, track, restriction, engine) {
+  function ensureMetricsRoot(data, mode, track, category, engine) {
     if (!data[mode]) {
       data[mode] = {};
     }
@@ -155,18 +184,18 @@
       data[mode][track] = {};
     }
   
-    if (!data[mode][track][restriction]) {
-      data[mode][track][restriction] = {};
+    if (!data[mode][track][category]) {
+      data[mode][track][category] = {};
     }
   
-    if (!data[mode][track][restriction][engine]) {
-      data[mode][track][restriction][engine] = {
-        categories: {},
+    if (!data[mode][track][category][engine]) {
+      data[mode][track][category][engine] = {
+        runTypes: {},
         grinds: [],
       };
     }
   
-    return data[mode][track][restriction][engine];
+    return data[mode][track][category][engine];
   }
   
   function ensureLastGrind(metrics) {
@@ -186,21 +215,21 @@
   function saveTime(data = {
     mode: STATE.selectedMode,
     track: STATE.selectedTrack,
-    restriction: STATE.selectedRestriction,
+    category: STATE.selectedCategory,
     engine: STATE.selectedEngine,
-    category: null,
+    runType: null,
     type,
     time,
   }) {
-    const { mode, track, restriction, engine, category, type, time } = data;
-    const metrics = ensureMetricsRoot(STATE.data, mode, track, restriction, engine);
+    const { mode, track, category, engine, runType, type, time } = data;
+    const metrics = ensureMetricsRoot(STATE.data, mode, track, category, engine);
   
     if (CATEGORY_TIME_TYPES.includes(type)) {
-      if (!metrics.categories[category]) {
-        metrics.categories[category] = {};
+      if (!metrics.runTypes[runType]) {
+        metrics.runTypes[runType] = {};
       }
   
-      metrics.categories[category][type] = time;
+      metrics.runTypes[runType][type] = time;
     }
   
     if (GRIND_TIME_TYPES.includes(type)) {
@@ -363,7 +392,7 @@
           saveTime({
             mode: STATE.selectedMode,
             track: STATE.selectedTrack,
-            restriction: STATE.selectedRestriction,
+            category: STATE.selectedCategory,
             engine: STATE.selectedEngine,
             type,
             time: type === 'bestPace' ? [parsedTime, parsedTime2] : parsedTime,
@@ -380,7 +409,7 @@
           saveTime({
             mode: STATE.selectedMode,
             track: STATE.selectedTrack,
-            restriction: STATE.selectedRestriction,
+            category: STATE.selectedCategory,
             engine: STATE.selectedEngine,
             type,
             time: null,
@@ -463,7 +492,7 @@
     DOM.grindTable.appendChild(createGrindTable());
   }
   
-  function createCategoryHeaderCell(title) {
+  function createRunTypeHeaderCell(title) {
     const th = document.createElement('th');
     th.appendChild(createSpan('text-orange', title));
     return th;
@@ -476,7 +505,7 @@
     return td;
   }
   
-  function createCategoryTimeCell(category, type, time, isGoalAchieved = false) {
+  function createRunTypeTimeCell(runType, type, time, isGoalAchieved = false) {
     const formattedTime = formatOptionalTime(time);
   
     return createEditableTimeCell({
@@ -493,9 +522,9 @@
         saveTime({
           mode: STATE.selectedMode,
           track: STATE.selectedTrack,
-          restriction: STATE.selectedRestriction,
+          category: STATE.selectedCategory,
           engine: STATE.selectedEngine,
-          category,
+          runType,
           type,
           time: parsedTime,
         });
@@ -508,9 +537,9 @@
         saveTime({
           mode: STATE.selectedMode,
           track: STATE.selectedTrack,
-          restriction: STATE.selectedRestriction,
+          category: STATE.selectedCategory,
           engine: STATE.selectedEngine,
-          category,
+          runType,
           type,
           time: null,
         });
@@ -522,7 +551,7 @@
     });
   }
   
-  function renderMilestonesTable(categories) {
+  function renderMilestonesTable(runTypes) {
     if (
       !STATE.settings.milestonesTable || 
       (
@@ -548,17 +577,17 @@
       const wrCells = [createTypeCell('WR')];
       const goalCells = [createTypeCell('Goal')];
   
-      getCurrentCategories().forEach((category) => {
-        const data = categories?.[category];
+      getCurrentRunTypes().forEach((runType) => {
+        const data = runTypes?.[runType];
         const pbTime = data?.personalBest;
         const wrTime = data?.worldRecord;
         const goalTime = data?.goal;
         const isGoalAchieved = Boolean(pbTime && goalTime && pbTime < goalTime);
   
-        headerCells.push(createCategoryHeaderCell(category));
-        pbCells.push(createCategoryTimeCell(category, 'personalBest', pbTime));
-        wrCells.push(createCategoryTimeCell(category, 'worldRecord', wrTime));
-        goalCells.push(createCategoryTimeCell(category, 'goal', goalTime, isGoalAchieved));
+        headerCells.push(createRunTypeHeaderCell(runType));
+        pbCells.push(createRunTypeTimeCell(runType, 'personalBest', pbTime));
+        wrCells.push(createRunTypeTimeCell(runType, 'worldRecord', wrTime));
+        goalCells.push(createRunTypeTimeCell(runType, 'goal', goalTime, isGoalAchieved));
       });
   
       thead.append(...headerCells);
@@ -590,7 +619,7 @@
     const grind = metrics ? getLastGrind(metrics.grinds) : null;
   
     renderHeader();
-    renderMilestonesTable(metrics?.categories);
+    renderMilestonesTable(metrics?.runTypes);
     renderGrindTable(STATE.selectedMode, grind);
   }
   

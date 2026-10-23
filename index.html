@@ -5,29 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CTR Progress</title>
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="assets/media/favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <div id="background" initial-src="assets/images/tracks/Menu.png"></div>
+  <div id="background" initial-src="assets/media/Menu.gif"></div>
 
   <main class="content">
-    <div class="logo-wrapper">
-      <img class="logo" src="assets/images/logo.png" alt="">
+    <div class="flex justify-content-center align-items-center w-100 h-100">
+      <div class="card card-body">
+        <div class="logo-wrapper">
+          <img class="logo" src="assets/media/logo.png" alt="">
+        </div>
+  
+        <h1 class="text-orange text-center">CTR Progress</h1>
+
+        <ul class="text-center" aria-label="Keyboard shortcuts">
+          <li>Press <span class="text-orange">M</span> to go to the main page</li>
+          <li>Press <span class="text-orange">S</span> to go to the settings page</li>
+          <li>Press <span class="text-orange">E</span> to go to the export page</li>
+          <li>Press <span class="text-orange">I</span> to go to the import page</li>
+          <li>Press <span class="text-orange">H</span> to return to this page</li>
+        </ul>
+      </div>
     </div>
-
-    <h1 class="text-orange text-center">CTR Progress</h1>
-
-    <ul class="text-center" aria-label="Keyboard shortcuts">
-      <li>Press <span class="text-orange">M</span> to go to the main page</li>
-      <li>Press <span class="text-orange">G</span> to go to the goals report page</li>
-      <li>Press <span class="text-orange">S</span> to go to the settings page</li>
-      <li>Press <span class="text-orange">E</span> to go to the export page</li>
-      <li>Press <span class="text-orange">I</span> to go to the import page</li>
-      <li>Press <span class="text-orange">H</span> to return to this page</li>
-    </ul>
   </main>
 
   <script src="assets/js/storage.js"></script>
+  <script src="assets/js/components/updater.js"></script>
   <script src="assets/js/components/background.js"></script>
   <script src="assets/js/components/controls.js"></script>
   <script src="assets/js/pages/home.js"></script>

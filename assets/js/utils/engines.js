@@ -1,7 +1,9 @@
 const Engine = Object.freeze({
-  GrindBest: 'Grind Best',
+  AllEngines: 'All Engines',
   Speed: 'Speed',
   Acceleration: 'Acceleration',
   Balanced: 'Balanced',
-  Turn: 'Turn'
+  Turn: 'Turn',
+  NoFastPenta: 'No Fast Penta',
+  OnlyFastPenta: 'Only Fast Penta'
 });

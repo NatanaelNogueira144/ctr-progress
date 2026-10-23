@@ -5,18 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CTR Progress - Settings</title>
   <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="../assets/media/favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <div id="background" initial-src="../assets/images/tracks/Menu.png"></div>
+  <div id="background" initial-src="../assets/media/Menu.gif"></div>
 
   <main class="content">
-    <h1 class="text-orange text-center">Settings</h1>
-
-    <div class="flex flex-column gap-sm">
-      <div class="card card-body" id="settings-card"></div>
-  
+    <div class="flex justify-content-center align-items-center w-100 h-100">
       <div class="card">
+        <h1 class="text-orange text-center">Settings</h1>
+        <div id="settings-card" class="flex flex-column"></div>
+        
         <button class="block" id="erase-all-data-button">
           <span class="text-red">Erase all data</span>
         </button>
@@ -26,6 +25,7 @@
 
   <script src="../assets/js/storage.js"></script>
   <script src="../assets/js/utils/array-utils.js"></script>
+  <script src="../assets/js/components/updater.js"></script>
   <script src="../assets/js/components/controls.js"></script>
   <script src="../assets/js/components/background.js"></script>
   <script src="../assets/js/pages/settings.js"></script>

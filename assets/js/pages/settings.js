@@ -1,6 +1,7 @@
+
 (function () {
   const DEFAULT_STATE = {
-    transparentBackground: false,
+    background: 'static',
     milestonesTable: {
       showPersonalBests: true,
       showGoals: true,
@@ -16,22 +17,65 @@
   };
 
   const SETTINGS_FIELDS = [
-    ['transparentBackground', 'Show transparent background'],
-    ['milestonesTable.showPersonalBests', 'Show personal bests'],
-    ['milestonesTable.showGoals', 'Show goals'],
-    ['milestonesTable.showWorldRecords', 'Show world records'],
-    ['grindTable.showBestCourse', 'Show grind best course'],
-    ['grindTable.showBestLap', 'Show grind best lap'],
-    ['grindTable.showBestLapInCourse', 'Show grind best lap in course'],
-    ['grindTable.showBestSL', 'Show grind best SL'],
-    ['grindTable.showBestPace', 'Show grind best pace'],
+    {
+      path: 'background',
+      label: 'Background Style',
+      type: 'select',
+      options: [
+        { value: 'transparent', label: 'Transparent' },
+        { value: 'static', label: 'Static' },
+        { value: 'animated', label: 'Animated' },
+      ],
+    },
+    {
+      path: 'milestonesTable.showPersonalBests',
+      label: 'Show personal bests',
+      type: 'checkbox',
+    },
+    {
+      path: 'milestonesTable.showGoals',
+      label: 'Show goals',
+      type: 'checkbox',
+    },
+    {
+      path: 'milestonesTable.showWorldRecords',
+      label: 'Show world records',
+      type: 'checkbox',
+    },
+    {
+      path: 'grindTable.showBestCourse',
+      label: 'Show grind best course',
+      type: 'checkbox',
+    },
+    {
+      path: 'grindTable.showBestLap',
+      label: 'Show grind best lap',
+      type: 'checkbox',
+    },
+    {
+      path: 'grindTable.showBestLapInCourse',
+      label: 'Show grind best in course',
+      type: 'checkbox',
+    },
+    {
+      path: 'grindTable.showBestSL',
+      label: 'Show grind best SL',
+      type: 'checkbox',
+    },
+    {
+      path: 'grindTable.showBestPace',
+      label: 'Show grind best pace',
+      type: 'checkbox',
+    },
   ];
 
   const state = readStorage(SETTINGS_KEY, DEFAULT_STATE);
 
   const dom = {
     settingsCard: document.getElementById('settings-card'),
-    eraseAllDataButton: document.getElementById('erase-all-data-button'),
+    eraseAllDataButton: document.getElementById(
+      'erase-all-data-button'
+    ),
   };
 
   if (!dom.settingsCard) return;
@@ -40,48 +84,110 @@
     writeStorage(SETTINGS_KEY, state);
   }
 
-  function createTextSpan(text) {
+  function createButton(text, className) {
+    const button = document.createElement('button');
+    button.className = 'block';
+
     const span = document.createElement('span');
-    span.className = 'white';
+    span.className = className;
     span.textContent = text;
-    return span;
+
+    button.appendChild(span);
+
+    return { button, span };
   }
 
-  function createCheckboxItem(path, label) {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'checkbox-group';
+  function createToggleItem({ path, label }) {
+    const { button, span } = createButton('', '');
 
-    const input = document.createElement('input');
-    input.type = 'checkbox';
-    input.checked = getNestedValue(state, path);
+    function updateLabel() {
+      const enabled = getNestedValue(state, path);
 
-    input.addEventListener('change', function () {
-      setNestedValue(state, path, input.checked);
+      span.className = enabled ? 'text-green' : 'text-red';
+      span.textContent = `${label}: ${enabled ? 'On' : 'Off'}`;
+    }
+
+    button.addEventListener('click', () => {
+      const enabled = !getNestedValue(state, path);
+
+      setNestedValue(state, path, enabled);
+      updateLabel();
       saveState();
     });
 
-    wrapper.append(input, createTextSpan(label));
-    return wrapper;
+    updateLabel();
+
+    return button;
+  }
+
+  function createSelectItem({ path, label, options }) {
+    const { button, span } = createButton('', 'text-orange');
+
+    function getCurrentOption() {
+      const value = getNestedValue(state, path);
+
+      return options.find(option => option.value === value)
+        ?? options[0];
+    }
+
+    function updateLabel() {
+      const currentOption = getCurrentOption();
+
+      span.textContent = `${label}: ${currentOption.label}`;
+    }
+
+    button.addEventListener('click', () => {
+      const currentOption = getCurrentOption();
+      const currentIndex = options.indexOf(currentOption);
+      const nextIndex = (currentIndex + 1) % options.length;
+      const nextOption = options[nextIndex];
+
+      setNestedValue(state, path, nextOption.value);
+      updateLabel();
+      saveState();
+    });
+
+    updateLabel();
+
+    return button;
+  }
+
+  function createSettingItem(setting) {
+    switch (setting.type) {
+      case 'select':
+        return createSelectItem(setting);
+
+      case 'checkbox':
+      default:
+        return createToggleItem(setting);
+    }
   }
 
   function renderSettings() {
-    const items = SETTINGS_FIELDS.map(([path, label]) =>
-      createCheckboxItem(path, label)
-    );
+    const items = SETTINGS_FIELDS.map(createSettingItem);
 
     dom.settingsCard.replaceChildren(...items);
   }
 
-  function render() {
-    renderSettings();
+  function eraseAllData() {
+    const confirmed = confirm(
+      'Are you sure about erasing all your data? This cannot be reverted!'
+    );
+
+    if (!confirmed) return;
+
+    writeStorage(DATA_KEY, {});
+    alert('All your data was deleted successfully.');
   }
 
-  dom.eraseAllDataButton.addEventListener("click", () => {
-    if (confirm('Are you sure about erasing all your data? This cannot be reverted!')) {
-      writeStorage(DATA_KEY, {});
-      alert("All your data was deleted successfully.");
-    }
-  });
+  function initialize() {
+    renderSettings();
 
-  render();
+    dom.eraseAllDataButton?.addEventListener(
+      'click',
+      eraseAllData
+    );
+  }
+
+  initialize();
 })();

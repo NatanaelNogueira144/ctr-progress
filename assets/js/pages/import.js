@@ -4,9 +4,9 @@
   const CATEGORY_HEADERS = [
     "Mode",
     "Track",
-    "Restriction",
-    "Engine",
     "Category",
+    "Engine",
+    "Run Type",
     "Personal Best",
     "Goal",
     "World Record"
@@ -15,7 +15,7 @@
   const GRIND_HEADERS = [
     "Mode",
     "Track",
-    "Restriction",
+    "Category",
     "Engine",
     "Best Course",
     "Best Lap",
@@ -132,15 +132,15 @@
   function getEngine(data, row) {
     data[row.Mode] ??= {};
     data[row.Mode][row.Track] ??= {};
-    data[row.Mode][row.Track][row.Restriction] ??= {};
-    data[row.Mode][row.Track][row.Restriction][row.Engine] ??= {
-      categories: {},
+    data[row.Mode][row.Track][row.Category] ??= {};
+    data[row.Mode][row.Track][row.Category][row.Engine] ??= {
+      runTypes: {},
       grinds: []
     };
 
-    const engine = data[row.Mode][row.Track][row.Restriction][row.Engine];
+    const engine = data[row.Mode][row.Track][row.Category][row.Engine];
 
-    engine.categories ??= {};
+    engine.runTypes ??= {};
     engine.grinds ??= [];
 
     return engine;
@@ -151,16 +151,16 @@
       if (
         !row.Mode ||
         !row.Track ||
-        !row.Restriction ||
+        !row.Category ||
         !row.Engine ||
-        !row.Category
+        !row["Run Type"]
       ) {
         continue;
       }
 
       const engine = getEngine(data, row);
 
-      engine.categories[row.Category] = {
+      engine.runTypes[row["Run Type"]] = {
         personalBest: parseTime(row["Personal Best"]),
         goal: parseTime(row.Goal),
         worldRecord: parseTime(row["World Record"])
@@ -173,7 +173,7 @@
       if (
         !row.Mode ||
         !row.Track ||
-        !row.Restriction ||
+        !row.Category ||
         !row.Engine
       ) {
         continue;

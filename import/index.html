@@ -5,18 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CTR Progress - Import</title>
   <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="../assets/media/favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <div id="background" initial-src="../assets/images/tracks/Menu.png"></div>
+  <div id="background" initial-src="../assets/media/Menu.gif"></div>
 
   <main class="content">
-    <div class="flex flex-column gap-sm">
-      <h1 class="text-orange text-center">Import Data</h1>
-  
+    <div class="flex justify-content-center align-items-center w-100 h-100">
       <div class="card">
         <div class="card-body flex flex-column gap-sm">
-          <p class="text-orange text-center">Import Category Data</p>
+          <h2 class="text-orange text-center">Import Category Data</h2>
 
           <div class="flex justify-content-center">
             <label class="file-picker">
@@ -24,12 +22,8 @@
               <input type="file" id="import-category-csv" accept=".csv,text/csv" hidden>
             </label>
           </div>
-        </div>
-      </div>
-  
-      <div class="card">
-        <div class="card-body flex flex-column gap-sm">
-          <p class="text-orange text-center">Import Grind Data</p>
+          
+          <h2 class="text-orange text-center">Import Grind Data</h2>
 
           <div class="flex justify-content-center">
             <label class="file-picker">
@@ -45,6 +39,7 @@
   <script src="../assets/js/storage.js"></script>
   <script src="../assets/js/utils/array-utils.js"></script>
   <script src="../assets/js/utils/date-utils.js"></script>
+  <script src="../assets/js/components/updater.js"></script>
   <script src="../assets/js/components/controls.js"></script>
   <script src="../assets/js/components/background.js"></script>
   <script src="../assets/js/pages/import.js"></script>

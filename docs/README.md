@@ -8,11 +8,10 @@ CTR Progress is designed to be used as a narrow side window in OBS, similar to t
 
 - Track personal bests, goals, and world records.
 - Track current grind performance for the selected setup.
-- Filter data by mode, track, restriction, and engine.
+- Filter data by mode, track, category, and engine.
 - Show a compact layout suitable for OBS browser sources.
 - Store all progress locally in the browser using `localStorage`.
 - Navigate easily through pages using keyboard shortcuts.
-- View goal completion status on the `/goals-report` page.
 - Customize your way on the `/settings` page.
 - Export and import data on the `/export` and `/import` pages.
 - Compare player progress against current world records.
@@ -23,7 +22,7 @@ CTR Progress organizes data around four main selectors:
 
 - **Mode**
 - **Track**
-- **Restriction**
+- **Category**
 - **Engine**
 
 For each selected combination, the overlay can display:
@@ -32,8 +31,6 @@ For each selected combination, the overlay can display:
 - Goal times
 - Current world record times (the user must feed the tool with these)
 - Current grind metrics
-
-The project also includes a separate `/goals-report` page that shows progress bars for completed goals, making it easier to visualize overall improvement.
 
 ## Getting Started
 
@@ -85,7 +82,7 @@ Typical workflow:
 
 1. Select the desired **mode**.
 2. Select the **track**.
-3. Select the **restriction**.
+3. Select the **category**.
 4. Select the **engine**.
 5. Update your PBs, goals, WRs, and grind times directly in the interface.
 
@@ -102,23 +99,13 @@ This makes it work similarly to traditional speedrun split panels, but focused o
 
 The `/export` and `/import` pages should be used in a regular browser, since file downloads and file selection may not be fully supported inside OBS Browser Sources.
 
-## Goals Report Page
-
-The `/goals-report` page provides a higher-level summary of progress.
-
-It displays progress bars showing how many goals have already been achieved, which makes it useful for:
-
-- Reviewing long-term progress
-- Tracking category completion
-- Showing milestone progress during streams
-
 ## Settings Page
 
 The `/settings` page provides a few options for displaying.
 
 It displays a few options for checking/unchecking that can hide or show features, such as:
 
-- Background (can be transparent)
+- Background (can be transparent, animated or static)
 - Personal bests, goals, world records or grind metrics in the main page
 
 ## Export Page
@@ -134,7 +121,7 @@ The exported files include:
 
 - Mode
 - Track
-- Restriction
+- Category
 - Engine
 - Category metrics
 - Personal best times
@@ -167,7 +154,7 @@ This includes:
 
 - Selected mode
 - Selected track
-- Selected restriction
+- Selected category
 - Selected engine
 - Personal best times
 - Goal times
@@ -190,11 +177,11 @@ CTR Progress is useful for:
 
 Possible future improvements:
 
-- Import and export progress data
+- Standards inclusion
+- Session timer and grinds details
+- Authentication
 - Sync data between browsers
-- Additional summary views
-- More detailed grind history
 
 ## Author
 
-Created by Natanael Nogueira.
+Created by Natanael Nogueira (TheKoji).

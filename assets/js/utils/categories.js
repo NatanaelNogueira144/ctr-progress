@@ -1,5 +1,5 @@
 const Category = Object.freeze({
-  Course: 'Course',
-  Lap: 'Lap',
-  SL: 'SL',
+  AllSkips: 'All Skips',
+  ClassicSkips: 'Classic Skips',
+  Skipless: 'Skipless',
 });
